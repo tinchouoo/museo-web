@@ -161,25 +161,26 @@
     </body>
 </html>
 
-	<script type="module">
-	  // Import the functions you need from the SDKs you need
-	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-	  import { getDatabase, set, ref, push, child } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-	  // TODO: Add SDKs for Firebase products that you want to use
-	  // https://firebase.google.com/docs/web/setup#available-libraries
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
-	  // Your web app's Firebase configuration
-	  const firebaseConfig = {
-	    apiKey: "AIzaSyDYERdo8lTDrfked_A4jlJp09FBzb3hUZg",
-	    authDomain: "museoapp-2705b.firebaseapp.com",
-	    projectId: "museoapp-2705b",
-	    storageBucket: "museoapp-2705b.appspot.com",
-	    messagingSenderId: "600906055391",
-	    appId: "1:600906055391:web:ab53db8deedd7f0d2cf36a"
-	  };
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDYERdo8lTDrfked_A4jlJp09FBzb3hUZg",
+    authDomain: "museoapp-2705b.firebaseapp.com",
+    databaseURL: "https://museoapp-2705b-default-rtdb.firebaseio.com",
+    projectId: "museoapp-2705b",
+    storageBucket: "museoapp-2705b.appspot.com",
+    messagingSenderId: "600906055391",
+    appId: "1:600906055391:web:ab53db8deedd7f0d2cf36a"
+  };
 
-	  // Initialize Firebase
-	  const app = initializeApp(firebaseConfig);
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+
 	  const database = getDatabase(app);	
 	Añadir.addEventListener('click',(e)=> {
 	var PuntoInteres = document.getElementById('puntointeres').Value;
