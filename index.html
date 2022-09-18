@@ -141,7 +141,7 @@
 	<!-- Ingresar datos-->	
 	
 	function InsertData(){
-		set(ref(db, "Puntos/"+PuntoID),{
+		set(ref(db, "Puntos/"+PuntoID.value),{
 		    PuntoInteresNombre:	puntointeres.value,
 		    URLimagen: urlimagen.value
 		});
