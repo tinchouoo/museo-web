@@ -6,6 +6,8 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Museo Web</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <link rel="icon" type="image/x-icon" href="assets/icon.png" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
@@ -94,71 +96,56 @@
                 </div>
             </div>
         </section>
-	<!-- Ingresar Punto-->
-	<section class="contact-section bg-white" id="pagina-ingresar">
-	<h1 class="mx-auto my-0 text-uppercase style="text-align: center">INGRESAR PUNTO INTERES</h1>	
-	 <div class="col-md-6" id="pagina-ingresar">
+	<div class="col-md-6">
 	  <form>
-	    <label>Nombre del Punto de Interés</label>
-	    <input type="text"  id="puntointeres" placeholder="nombre" > <br><br>
-	    <label>URL de la imagen</label>
-	    <input type="text"  id="urlimagen"placeholder="URL"> <br>
-	  
-	  <button type="submit" id="btningresar">Añadir</button>
-		</form>
-	</div> 
-	</section> 
-	<!-- Conexion-->
-	<script type="module">
-	  // Import the functions you need from the SDKs you need
-	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-	  // TODO: Add SDKs for Firebase products that you want to use
-	  // https://firebase.google.com/docs/web/setup#available-libraries
+	    <div class="form-group">
+	    <label>First name</label>
+	    <input type="text" class="form-control" id="nombrepunto" placeholder="nombre">
+	  </div>
+	  <div class="form-group">
+	    <label>Last name</label>
+	    <input type="text" class="form-control" id="urlimagen"placeholder="URL">
+	  </div>
+	  <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+	</form>
+	</div>
 
-	  // Your web app's Firebase configuration
-	  const firebaseConfig = {
-	    apiKey: "AIzaSyAtl3BbV5XTV5xS7dPNLG0rhVCsKEhzbiE",
-	    authDomain: "museoapp-e131e.firebaseapp.com",
-	    projectId: "museoapp-e131e",
-	    storageBucket: "museoapp-e131e.appspot.com",
-	    messagingSenderId: "183119015597",
-	    appId: "1:183119015597:web:3054b7c2eec5745f97e024"
-	  };
+	  <button type="submit" id="getData" class="btn btn-primary">Search data</button>
 
-	  // Initialize Firebase
-	  const app = initializeApp(firebaseConfig);
-	  import {getDatabase, ref, set, child}
-	  from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-							
-	 const db = getDatabase();
-									       
-	<!-- Referencias-->					       
-	var namebox = document.getElementById("puntointeres");							       
-	var urlImagen = document.getElementById("urlimagen");	
-	var Btningresar = document.getElementByID("btningresar");
-							       
-	const PuntoID = push(child(ref(db), 'Puntos')).key;					   
-	<!-- Ingresar datos-->	
-	
-	function InsertData(){
-		set(ref(db, "Puntos/"+PuntoID.value),{
-		    PuntoInteresNombre:	puntointeres.value,
-		    URLimagen: urlimagen.value
-		});
-		.then(()=>{
-			alert("Añadido correctamente");	     
-		})
-		.catch((error)=>{
-			alert("Salio Mal" + error);				     
-		});				     
-	}
-					 
-	<!-- asignarevento-->
-	Btningresar.addEventListener('click' , InsertData);
-					 
-					 
-	</script>
-							      
+	<div class="col-md-6">
+	<table class="table table-striped" id='dataTbl'>
+	  <thead>
+	    <tr>
+	      <th scope="col">#</th>
+	      <th scope="col">First</th>
+	      <th scope="col">Last</th>
+
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr>
+	      <td>1</td>
+	      <td>Mark</td>
+	      <td>Otto</td>
+
+	    </tr>
+	    <tr>
+	      <td>2</td>
+	      <td>Jacob</td>
+	      <td>Thornton</td>
+
+	    </tr>
+	    <tr>
+	      <td>3</td>
+	      <td>Larry</td>
+	      <td>the Bird</td>
+
+	    </tr>
+	  </tbody>
+	</table>
+	</div>
+
+						
         <!-- contacto-->
         <section class="contact-section bg-black" id="pagina-contacto">
             <div class="container px-4 px-lg-5">
@@ -202,10 +189,75 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="js/scripts.js"></script>
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-	
-
-	    
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>    
     </body>
 </html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+  import { getDatabase, set, ref ,push, child, onValue} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBpVkqcYCsQasMabKZxO4GfIAWCPQTEnG8",
+    authDomain: "pruebaingresar.firebaseapp.com",
+    projectId: "pruebaingresar",
+    storageBucket: "pruebaingresar.appspot.com",
+    messagingSenderId: "1028862411233",
+    appId: "1:1028862411233:web:fd761b376350f40724d2a0"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  
+  // Get a reference to the database service
+  const database = getDatabase(app);
+
+  // write data
+  submit.addEventListener('click',(e) => {
+    var nombrepunto = document.getElementById('nombrepunto').value;  
+    var urlimagen = document.getElementById('urlimagen').value;  
+     
+
+    const PuntoID = push(child(ref(database), 'Punto')).key;
+   
+    set(ref(database, 'Punto/' + PuntoID), {
+    nombrepunto: nombrepunto,
+    urlimagen: urlimagen
+   
+   });
+   alert('saved');
+  });
+
+  // read data
+  getData.addEventListener('click',(e) => {
+
+    $('#dataTbl td').remove();
+    var rowNum = 0; 
+    const dbRef = ref(database, 'Punto/');
+
+    onValue(dbRef, (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+      const childKey = childSnapshot.key;
+      const childData = childSnapshot.val();
+      // ...
+      rowNum += 1; 
+      var row = "<tr><td>" + rowNum + "</td><td>" + childData.nombrepunto + "</td><td>" + childData.urlimagen + "</td><td>"
+
+      $(row).appendTo('#dataTbl');
+      
+      });
+    }, {
+       onlyOnce: true
+    });
+
+
+  });
+</script>
 
