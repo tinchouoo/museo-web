@@ -47,9 +47,9 @@
                 </div>
             </div>
         </header>
-        <!-- Sobre nosotros-->
+        
 
-        <!-- Puntos Interes-->
+        //-- Puntos Interes--//
         <section class="projects-section bg-light" id="projects">
             <div class="container px-4 px-lg-5">
                 <!-- Featured Project Row-->
@@ -94,24 +94,72 @@
                 </div>
             </div>
         </section>
-	<!-- Ingresar Punto--> 
+	//-- Ingresar Punto--//
 	<section class="contact-section bg-white" id="pagina-ingresar">
 	<h1 class="mx-auto my-0 text-uppercase style="text-align: center">INGRESAR PUNTO INTERES</h1>	
 	 <div class="col-md-6" id="pagina-ingresar">
 	  <form>
-	    <div class="form-group">
 	    <label>Nombre del Punto de Interés</label>
-	    <input type="text" class="form-control" id="puntointeres" placeholder="nombre">
-	  </div>
-	  <div class="form-group">
+	    <input type="text"  id="puntointeres" placeholder="nombre">
 	    <label>URL de la imagen</label>
-	    <input type="text" class="form-control" id="urlimagen"placeholder="URL">
-	  </div>
-	  <button type="submit" id="Añadir" class="btn btn-primary">Añadir</button>
+	    <input type="text"  id="urlimagen"placeholder="URL">
+	  
+	  <button type="submit" id="btningresar">Añadir</button>
 		</form>
-		</div> 
-	</section>  
-        <!-- Contacto-->
+	</div> 
+	</section> 
+					   //-- Conexion--//
+	<script type="module">
+	  // Import the functions you need from the SDKs you need
+	  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
+	  // TODO: Add SDKs for Firebase products that you want to use
+	  // https://firebase.google.com/docs/web/setup#available-libraries
+
+	  // Your web app's Firebase configuration
+	  const firebaseConfig = {
+	    apiKey: "AIzaSyAtl3BbV5XTV5xS7dPNLG0rhVCsKEhzbiE",
+	    authDomain: "museoapp-e131e.firebaseapp.com",
+	    projectId: "museoapp-e131e",
+	    storageBucket: "museoapp-e131e.appspot.com",
+	    messagingSenderId: "183119015597",
+	    appId: "1:183119015597:web:3054b7c2eec5745f97e024"
+	  };
+
+	  // Initialize Firebase
+	  const app = initializeApp(firebaseConfig);
+	  import {getDatabase, ref, set, child}
+	  from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
+							
+	 const db = getDatabase();
+									       
+	//-- referencias--//					       
+	var namebox = document.getElementById("puntointeres");							       
+	var urlImagen = document.getElementById("urlimagen");	
+	var Btningresar = document.getElementByID("btningresar");
+							       
+	const PuntoID = push(child(ref(db), 'Puntos')).key;					   
+	<!-- Ingresar datos-->	
+	
+	function InsertData(){
+		set(ref(db, "Puntos/"+PuntoID),{
+		    PuntoInteresNombre:	puntointeres.value,
+		    URLimagen: urlimagen.value
+		});
+		.then(()=>{
+			alert("Añadido correctamente");	     
+		})
+		.catch((error)=>{
+			alert("Salio Mal" + error);				     
+		});				     
+	}
+					 
+	//-- Asignar evento a boton--//
+	Btningresar.addEventListener('click' , InsertData);
+					 
+					 
+	</script>
+							      
+        //-- Contacto--//
         <section class="contact-section bg-black" id="pagina-contacto">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
@@ -160,38 +208,4 @@
 	    
     </body>
 </html>
-								       
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-  import { getDatabase, ref, runTransaction } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyCpnHiJ9xt4BW9nQJg3G4mWuW0smPTCXm0",
-    authDomain: "museoweb-8e973.firebaseapp.com",
-    projectId: "museoweb-8e973",
-    storageBucket: "museoweb-8e973.appspot.com",
-    messagingSenderId: "549213751381",
-    appId: "1:549213751381:web:b671ee072e0cd52603ecdc"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
- const database = getDatabase(app);	
-	Añadir.addEventListener('click',(e)=> {
-	var PuntoInteres = document.getElementById('puntointeres').Value;
-	var UrlImagen = document.getElementById('urlimagen').Value;
-							      
-	 const PuntoId = push(child(ref(database), 'Puntos')).key;
-	 set(ref(database, 'Puntos/' + PuntoId), {
-	 PuntoInteres: PuntoInteres,
-	 UrlImagen: UrlImagen,
-	  });						      
-	alert('Añadido');						      
-							      
-							 
-	});
- </script>
