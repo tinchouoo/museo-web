@@ -185,7 +185,7 @@
 	var PuntoInteres = document.getElementById('puntointeres').Value;
 	var UrlImagen = document.getElementById('urlimagen').Value;
 							      
-	 const PuntosId = push(child(ref(database), 'Puntos')).key;
+	 const PuntoId = push(child(ref(database), 'Puntos')).key;
 	 set(ref(database, 'Puntos/' + PuntoId), {
 	 PuntoInteres: PuntoInteres,
 	 UrlImagen: UrlImagen,
