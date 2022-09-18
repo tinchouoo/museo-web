@@ -99,53 +99,46 @@
 	<div class="col-md-6">
 	  <form>
 	    <div class="form-group">
-	    <label>First name</label>
-	    <input type="text" class="form-control" id="nombrepunto" placeholder="nombre">
+	    <label>Nombre</label>
+	    <input type="text" class="form-control" id="punt_nombre" placeholder="nombre">
 	  </div>
 	  <div class="form-group">
-	    <label>Last name</label>
-	    <input type="text" class="form-control" id="urlimagen"placeholder="URL">
+	    <label>Descripcion</label>
+	    <input type="text" class="form-control" id="punt_descripcion"placeholder="Descripcion">
 	  </div>
-	  <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+	    <div class="form-group">
+	    <label>Autor</label>
+	    <input type="text" class="form-control" id="punt_autor" placeholder="Autor">
+	  </div>
+	    <div class="form-group">
+	    <label>Imagen</label>
+	    <input type="text" class="form-control" id="punt_imagen" placeholder="URL de imagen">
+	  </div>
+	    <div class="form-group">
+	    <label>Miniatura</label>
+	    <input type="text" class="form-control" id="punt_miniatura" placeholder="URL de miniatura">
+	  </div>
+	  <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
 	</form>
 	</div>
 
-	  <button type="submit" id="getData" class="btn btn-primary">Search data</button>
+	  <button type="submit" id="getData" class="btn btn-primary">Buscar</button>
 
 	<div class="col-md-6">
 	<table class="table table-striped" id='dataTbl'>
 	  <thead>
 	    <tr>
 	      <th scope="col">#</th>
-	      <th scope="col">First</th>
-	      <th scope="col">Last</th>
-
+	      <th scope="col">Nombre</th>
+	      <th scope="col">Descripcion</th>
+	      <th scope="col">Autor</th>
+	      <th scope="col">Imagen</th>
+		<th scope="col">Miniatura</th>
 	    </tr>
 	  </thead>
-	  <tbody>
-	    <tr>
-	      <td>1</td>
-	      <td>Mark</td>
-	      <td>Otto</td>
-
-	    </tr>
-	    <tr>
-	      <td>2</td>
-	      <td>Jacob</td>
-	      <td>Thornton</td>
-
-	    </tr>
-	    <tr>
-	      <td>3</td>
-	      <td>Larry</td>
-	      <td>the Bird</td>
-
-	    </tr>
-	  </tbody>
 	</table>
 	</div>
-
-						
+					
         <!-- contacto-->
         <section class="contact-section bg-black" id="pagina-contacto">
             <div class="container px-4 px-lg-5">
@@ -204,14 +197,15 @@
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyBpVkqcYCsQasMabKZxO4GfIAWCPQTEnG8",
-    authDomain: "pruebaingresar.firebaseapp.com",
-    projectId: "pruebaingresar",
-    storageBucket: "pruebaingresar.appspot.com",
-    messagingSenderId: "1028862411233",
-    appId: "1:1028862411233:web:fd761b376350f40724d2a0"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAVHLsWqGayikm_IyXFlqwSow0b6dM9Dkg",
+  authDomain: "bdmuseoapp.firebaseapp.com",
+  databaseURL: "https://bdmuseoapp-default-rtdb.firebaseio.com",
+  projectId: "bdmuseoapp",
+  storageBucket: "bdmuseoapp.appspot.com",
+  messagingSenderId: "110209157558",
+  appId: "1:110209157558:web:faa2b341bd35a4e606d917"
+};
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
@@ -221,16 +215,20 @@
 
   // write data
   submit.addEventListener('click',(e) => {
-    var nombrepunto = document.getElementById('nombrepunto').value;  
-    var urlimagen = document.getElementById('urlimagen').value;  
-     
+    var punt_nombre = document.getElementById('punt_nombre').value;
+    var punt_autor = document.getElementById('punt_autor').value;
+    var punt_descripcion = document.getElementById('punt_descripcion').value;  
+    var punt_imagen = document.getElementById('punt_imagen').value;
+    var punt_miniatura = document.getElementById('punt_miniatura').value;
 
-    const PuntoID = push(child(ref(database), 'Punto')).key;
+    const PuntoID = push(child(ref(database), 'Puntos')).key;
    
-    set(ref(database, 'Punto/' + PuntoID), {
-    nombrepunto: nombrepunto,
-    urlimagen: urlimagen
-   
+    set(ref(database, 'Puntos/' + PuntoID), {
+    punt_nombre: punt_nombre,
+    punt_autor: punt_autor,
+    punt_descripcion: punt_descripcion,
+    punt_imagen: punt_imagen,
+    punt_miniatura: punt_miniatura
    });
    alert('saved');
   });
@@ -240,7 +238,7 @@
 
     $('#dataTbl td').remove();
     var rowNum = 0; 
-    const dbRef = ref(database, 'Punto/');
+    const dbRef = ref(database, 'Puntos/');
 
     onValue(dbRef, (snapshot) => {
       snapshot.forEach((childSnapshot) => {
@@ -248,7 +246,7 @@
       const childData = childSnapshot.val();
       // ...
       rowNum += 1; 
-      var row = "<tr><td>" + rowNum + "</td><td>" + childData.nombrepunto + "</td><td>" + childData.urlimagen + "</td><td>"
+      var row = "<tr><td>" + rowNum + "</td><td>" + childData.punt_nombre + "</td><td>" + childData.punt_autor + "</td><td>" + childData.punt_descripcion + "</td><td>" + childData.punt_imagen + "</td><td>" + childData.punt_miniatura + "</td><td>"
 
       $(row).appendTo('#dataTbl');
       
@@ -260,4 +258,3 @@
 
   });
 </script>
-
