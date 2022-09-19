@@ -96,49 +96,54 @@
                 </div>
             </div>
         </section>
-	<div class="col-md-6">
-	  <form>
-	    <div class="form-group">
+	<h1 class="mx-auto my-0 text-uppercase text-center" >Ingresar Punto de Interes</h1><br><br>
+	<div class="col-md-6" >
+	
+	  <form style="width:100%;margin: 2px 477px;">
+	    <div class="mx-auto my-0 text-uppercase text-center">
 	    <label>Nombre</label>
-	    <input type="text" class="form-control" id="punt_nombre" placeholder="nombre">
+	    <input type="text" required minlength="4" maxlength="8" size="10" class="form-control" id="punt_nombre"  placeholder="nombre">
 	  </div>
-	  <div class="form-group">
+	  <div class="mx-auto my-0 text-uppercase text-center">
 	    <label>Descripcion</label>
-	    <input type="text" class="form-control" id="punt_descripcion"placeholder="Descripcion">
+	    <input type="text" required minlength="4" maxlength="8" size="10" class="form-control" id="punt_descripcion"placeholder="Descripcion">
 	  </div>
-	    <div class="form-group">
+	    <div class="mx-auto my-0 text-uppercase text-center">
 	    <label>Autor</label>
-	    <input type="text" class="form-control" id="punt_autor" placeholder="Autor">
+	    <input type="text" required minlength="4" maxlength="8" size="10" class="form-control" id="punt_autor" placeholder="Autor">
 	  </div>
-	    <div class="form-group">
+	    <div class="mx-auto my-0 text-uppercase text-center">
 	    <label>Imagen</label>
-	    <input type="text" class="form-control" id="punt_imagen" placeholder="URL de imagen">
+	    <input type="text" required minlength="4" maxlength="8" size="10" class="form-control" id="punt_imagen" placeholder="URL de imagen">
 	  </div>
-	    <div class="form-group">
+	    <div class="mx-auto my-0 text-uppercase text-center">
 	    <label>Miniatura</label>
-	    <input type="text" class="form-control" id="punt_miniatura" placeholder="URL de miniatura">
+	    <input type="text" required minlength="4" maxlength="8" size="10" class="form-control" id="punt_miniatura" placeholder="URL de miniatura">
 	  </div>
-	  <button type="submit" id="submit" class="btn btn-primary">Ingresar</button>
+	  <button type="submit" style="width:100%;margin-left:auto;margin-right:auto;display:block;margin-top:2%;margin-bottom:0%" id="submit" class="btn btn-primary">Ingresar</button> 
 	</form>
+
+
 	</div>
 
-	  <button type="submit" id="getData" class="btn btn-primary">Buscar</button>
+	  <button type="submit" style="width:30%;margin-left:auto;margin-right:auto;display:block;margin-top:2%;margin-bottom:0%" id="getData" class="btn btn-primary">Buscar</button>
 
 	<div class="col-md-6">
-	<table class="table table-striped" id='dataTbl'>
+	<table class="table table-striped align-items-center justify-content-center " id='dataTbl' style="padding:20px;margin-left:50%;margin-top:5%;margin-bottom:50%; border:1px solid black;margin-right:auto;" align="center">
 	  <thead>
 	    <tr>
 	      <th scope="col">#</th>
 	      <th scope="col">Nombre</th>
-	      <th scope="col">Descripcion</th>
 	      <th scope="col">Autor</th>
+	      <th scope="col">Descripción</th>
 	      <th scope="col">Imagen</th>
 		<th scope="col">Miniatura</th>
 	    </tr>
 	  </thead>
 	</table>
 	</div>
-					
+
+	<h1 class="mx-auto my-0 text-uppercase text-center" >Contacto</h1>				
         <!-- contacto-->
         <section class="contact-section bg-black" id="pagina-contacto">
             <div class="container px-4 px-lg-5">
@@ -258,3 +263,4 @@ const firebaseConfig = {
 
   });
 </script>
+
