@@ -406,7 +406,7 @@ const auth = getAuth();
           email: email
       })
 
-      alert('user created!');
+      alert('Usuario registrado correctamente, Bienvenido!');
       // ...
     })
     .catch((error) => {
@@ -434,7 +434,7 @@ const auth = getAuth();
           last_login: dt,
         })
 
-         alert('User loged in!');
+         alert('Inicio sesión correctamente, Gracias!');
         // ...
       })
       .catch((error) => {
@@ -465,7 +465,7 @@ logout.addEventListener('click',(e)=>{
 
    signOut(auth).then(() => {
      // Sign-out successful.
-     alert('user loged out');
+     alert('Usted cerró su sesión, Gracias por su servicio!');
    }).catch((error) => {
      // An error happened.
      const errorCode = error.code;
