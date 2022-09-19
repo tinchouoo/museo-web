@@ -320,7 +320,74 @@ const firebaseConfig = {
   const app = initializeApp(firebaseConfig);
   const database = getDatabase(app);
   const auth = getAuth();
+  // write data
+  submit.addEventListener('click',(e) => {
+    var punt_nombre = document.getElementById('punt_nombre').value;
+    var punt_autor = document.getElementById('punt_autor').value;
+    var punt_descripcion = document.getElementById('punt_descripcion').value;  
+    var punt_imagen = document.getElementById('punt_imagen').value;
+    var punt_miniatura = document.getElementById('punt_miniatura').value;
 
+    const PuntoID = push(child(ref(database), 'Puntos')).key;
+   
+    set(ref(database, 'Puntos/' + PuntoID), {
+    punt_nombre: punt_nombre,
+    punt_autor: punt_autor,
+    punt_descripcion: punt_descripcion,
+    punt_imagen: punt_imagen,
+    punt_miniatura: punt_miniatura
+   });
+   alert('saved');
+  });
+
+  // read data
+  getData.addEventListener('click',(e) => {
+
+    $('#dataTbl td').remove();
+    var rowNum = 0; 
+    const dbRef = ref(database, 'Puntos/');
+
+    onValue(dbRef, (snapshot) => {
+      snapshot.forEach((childSnapshot) => {
+      const childKey = childSnapshot.key;
+      const childData = childSnapshot.val();
+      // ...
+      rowNum += 1; 
+      var row = "<tr><td>" + rowNum + "</td><td>" + childData.punt_nombre + "</td><td>" + childData.punt_autor + "</td><td>" + childData.punt_descripcion + "</td><td>" + childData.punt_imagen + "</td><td>" + childData.punt_miniatura + "</td><td>"
+
+      $(row).appendTo('#dataTbl');
+      
+      });
+    }, {
+       onlyOnce: true
+    });
+
+	updateData.addEventListener('click', (e) => {
+	//update data
+        update(ref(database, 'Puntos/' + punt_nombre), {
+   		 punt_autor: punt_autor,
+   		 punt_descripcion: punt_descripcion,
+   		 punt_imagen: punt_imagen,
+   		 punt_miniatura: punt_miniatura
+        }).then(() => {
+            // Data saved successfully!
+            alert('data updated');
+        })
+            .catch((error) => {
+                // The write failed...
+                alert(error);
+            });
+    });
+
+  // delete data
+removeData.addEventListener('click',(e) => {
+            var punt_nombre = document.getElementById('punt_nombre').value;
+
+            remove(ref(database, 'Puntos/' + punt_nombre));
+            alert('removed');
+        });
+
+  });
 sighUp.addEventListener('click',(e) => {
 	e.preventDefault();
   var username = document.getElementById('username').value;
@@ -408,47 +475,6 @@ logout.addEventListener('click',(e)=>{
 	
 
 });
-  // write data
-  submit.addEventListener('click',(e) => {
-    var nombrepunto = document.getElementById('nombrepunto').value;  
-    var urlimagen = document.getElementById('urlimagen').value;  
-     
-
-    const PuntoID = push(child(ref(database), 'Punto')).key;
-   
-    set(ref(database, 'Punto/' + PuntoID), {
-    nombrepunto: nombrepunto,
-    urlimagen: urlimagen
-   
-   });
-   alert('saved');
-  });
-
-  // read data
-  getData.addEventListener('click',(e) => {
-
-    $('#dataTbl td').remove();
-    var rowNum = 0; 
-    const dbRef = ref(database, 'Punto/');
-
-    onValue(dbRef, (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-      const childKey = childSnapshot.key;
-      const childData = childSnapshot.val();
-      // ...
-      rowNum += 1; 
-      var row = "<tr><td>" + rowNum + "</td><td>" + childData.nombrepunto + "</td><td>" + childData.urlimagen + "</td><td>"
-
-      $(row).appendTo('#dataTbl');
-      
-      });
-    }, {
-       onlyOnce: true
-    });
-
-
-  });
-	
 
 </script>
 
