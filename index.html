@@ -16,8 +16,111 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+<style>
+/* Button used to open the contact form - fixed at the bottom of the page */
+.open-button {
+  background-color: gray;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+  border-radius: 5px;
+}
+
+/* The popup form - hidden by default */
+.form-popup {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 15px;
+  border: 3px solid #f1f1f1;
+  z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+  max-width: 300px;
+  padding: 10px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+.form-container input[type=text]:focus, .form-container input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Set a style for the submit/login button */
+.form-container .btn {
+  background-color: #04AA6D;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom:10px;
+  opacity: 0.8;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+
+</style>
     </head>
-    <body id="pagina-inicial">
+    	<body id="pagina-inicial">
+
+	<button class="open-button" onclick="openForm()">Login</button>
+
+	<div class="form-popup" id="myForm">
+  	<form class="form-container">
+    	<h1>Login</h1>
+	<label for="username"><b>Nombre de usuario</b></label>
+    	<input type="text" id="username" placeholder="Introduzca su usuario" name="username" required>
+
+    	<label for="email"><b>Email</b></label>
+    	<input type="text" id="email" placeholder="Introduzca su email" name="email" required>
+
+    	<label for="psw"><b>Contraseña</b></label>
+    	<input type="password" id="password" placeholder="Introduzca su contraseña" name="password" required>
+
+    	<button type="submit" id="login" class="btn">Ingresar</button>
+	<button  id="sighUp" class="btn">Registrarse</button>
+    	<button type=".form-container .btn" class="btn cancel" onclick="closeForm()">Cerrar</button>
+	
+  	</form>
+	</div>
+
+	<script>
+		function openForm() {
+  		document.getElementById("myForm").style.display = "block";
+	}
+
+	function closeForm() {
+  		document.getElementById("myForm").style.display = "none";
+	}
+	</script>
+
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
@@ -44,7 +147,8 @@
                     <div class="text-center" >
                         <h1 class="mx-auto my-0 text-uppercase">Museo Web</h1>
                         <h2 class="text-white-50 mx-auto mt-2 mb-5">Museo picadisimo.</h2>
-                        <a class="btn btn-primary" href="#projects">Ver Puntos</a>
+                        <a class="btn btn-primary " href="#projects">Ver Puntos</a>
+
                     </div>
                 </div>
             </div>
@@ -195,72 +299,114 @@
 
 <script type="module">
   // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js";
-  import { getDatabase, set, ref ,push, child, onValue} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-database.js";
-
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-app.js";
+  import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-database.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.4.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
   // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAVHLsWqGayikm_IyXFlqwSow0b6dM9Dkg",
-  authDomain: "bdmuseoapp.firebaseapp.com",
-  databaseURL: "https://bdmuseoapp-default-rtdb.firebaseio.com",
-  projectId: "bdmuseoapp",
-  storageBucket: "bdmuseoapp.appspot.com",
-  messagingSenderId: "110209157558",
-  appId: "1:110209157558:web:faa2b341bd35a4e606d917"
+    apiKey: "AIzaSyBpVkqcYCsQasMabKZxO4GfIAWCPQTEnG8",
+    authDomain: "pruebaingresar.firebaseapp.com",
+    databaseURL: "https://pruebaingresar-default-rtdb.firebaseio.com",
+    projectId: "pruebaingresar",
+    storageBucket: "pruebaingresar.appspot.com",
+    messagingSenderId: "1028862411233",
+    appId: "1:1028862411233:web:0daf27b7e38223fc24d2a0"
 };
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  
-  // Get a reference to the database service
   const database = getDatabase(app);
+  const auth = getAuth();
 
-  // write data
-  submit.addEventListener('click',(e) => {
-    var punt_nombre = document.getElementById('punt_nombre').value;
-    var punt_autor = document.getElementById('punt_autor').value;
-    var punt_descripcion = document.getElementById('punt_descripcion').value;  
-    var punt_imagen = document.getElementById('punt_imagen').value;
-    var punt_miniatura = document.getElementById('punt_miniatura').value;
+sighUp.addEventListener('click',(e) => {
+	e.preventDefault();
+  var username = document.getElementById('username').value;
+  var email = document.getElementById('email').value;
+  var password = document.getElementById('password').value;
+  
 
-    const PuntoID = push(child(ref(database), 'Puntos')).key;
-   
-    set(ref(database, 'Puntos/' + PuntoID), {
-    punt_nombre: punt_nombre,
-    punt_autor: punt_autor,
-    punt_descripcion: punt_descripcion,
-    punt_imagen: punt_imagen,
-    punt_miniatura: punt_miniatura
-   });
-   alert('saved');
-  });
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+     // Signed in 
+      const user = userCredential.user;
 
-  // read data
-  getData.addEventListener('click',(e) => {
+      set(ref(database, 'users/' + user.uid),{
+          username: username,
+          email: email
+      })
 
-    $('#dataTbl td').remove();
-    var rowNum = 0; 
-    const dbRef = ref(database, 'Puntos/');
-
-    onValue(dbRef, (snapshot) => {
-      snapshot.forEach((childSnapshot) => {
-      const childKey = childSnapshot.key;
-      const childData = childSnapshot.val();
+      alert('user created!');
       // ...
-      rowNum += 1; 
-      var row = "<tr><td>" + rowNum + "</td><td>" + childData.punt_nombre + "</td><td>" + childData.punt_autor + "</td><td>" + childData.punt_descripcion + "</td><td>" + childData.punt_imagen + "</td><td>" + childData.punt_miniatura + "</td><td>"
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
 
-      $(row).appendTo('#dataTbl');
-      
-      });
-    }, {
-       onlyOnce: true
+      alert(errorMessage);
+    // ..
     });
 
+});
 
+ login.addEventListener('click',(e)=>{
+	e.preventDefault();
+   var email = document.getElementById('email').value;
+   var password = document.getElementById('password').value;
+
+      signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+
+        const dt = new Date();
+         update(ref(database, 'users/' + user.uid),{
+          last_login: dt,
+        })
+
+         alert('User loged in!');
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        alert(errorMessage);
   });
+
+ });
+
+const user = auth.currentUser;
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/firebase.User
+    const uid = user.uid;
+    //bla bla bla
+    // ...
+  } else {
+    // User is signed out
+    // ...
+    //bla bla bla
+  }
+});
+
+logout.addEventListener('click',(e)=>{
+
+   signOut(auth).then(() => {
+     // Sign-out successful.
+     alert('user loged out');
+   }).catch((error) => {
+     // An error happened.
+     const errorCode = error.code;
+     const errorMessage = error.message;
+
+        alert(errorMessage);
+   });
+
+});
+
 </script>
 
